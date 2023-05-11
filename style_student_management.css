@@ -1,0 +1,35 @@
+html {
+  height: 100%;
+  width: 100%;
+}
+
+.navs {
+  display: flex;
+}
+
+.nav-item {
+  font-size: 3em;
+}
+
+.button-item {
+  bottom: 10px;
+  right: 10px;
+  font-size:2.5em;
+  position: fixed;
+}
+
+thead { 
+  position: sticky;
+  font-size: 2.5em;
+  top: 0; 
+}
+
+table {
+  width: 50%;
+  border: 1px solid;
+}
+
+th, td {
+  border: 1px solid;
+  text-align: center;
+}

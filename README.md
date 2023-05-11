@@ -16,7 +16,7 @@
 
 ## 페이지
 [메인화면(index.html)](index.html)<br>
-[출석시작 페이지(attendance.html)](attendance.html)<br>
+[출석 페이지(attendance.html)](attendance.html)<br>
 [출석관리 페이지(attendance_management.html)](attendance_management.html)<br>
 [학생관리 페이지(student_management.html)](student_management.html)<br>
 [학생 정보 페이지(student_info.html)](student_info.html)<br>

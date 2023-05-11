@@ -1,10 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>학생 관리</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script defer src="script.js"></script>
+  <script defer src="function1.js"></script>
+  <script defer src="table1.js"></script>
+  <link href="style_student_management.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-    <input type="button" value="학생 등록" onclick="location.href='./attendance.html'">
+  <div>
+    <div class="navs">
+      <div class="nav-item">학생관리 페이지</div>
+      <form>
+      <select onchange="checkTableCreate(this.value)">
+        <option value=0>1주차</option>
+        <option value=1>2주차</option>
+        <option value=2>3주차</option>
+        <option value=3>4주차</option>
+        <option value=4>5주차</option>
+        <option value=5>6주차</option>
+        <option value=6>7주차</option>
+        <option value=7>8주차</option>
+        <option value=8>9주차</option>
+        <option value=9>10주차</option>
+        <option value=10>11주차</option>
+        <option value=11>12주차</option>
+        <option value=12>13주차</option>
+      </select>
+    </form>
+    </div>
+    <table id="checkTable">
+      <thead>
+        <tr><strong>
+          <th>이름</th>
+          <th>학번</th>
+          <th>출석 상태</th>
+        </tr></strong>
+      </thead>
+      <tbody id="checkbody">
+      </tbody>
+    </table>
+  </div>
+  <button class="button-item" onclick="location.href='index.html'">돌아가기</button>
 </body>
-</html>

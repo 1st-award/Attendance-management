@@ -49,7 +49,7 @@ video.addEventListener('play', () => {
 
 // face recognition model with Avengers images
 function loadLabeledImages() {
-  const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Jo', 'Thor', 'Tony Stark']
+  const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []

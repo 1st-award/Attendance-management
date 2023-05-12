@@ -1,10 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+  <script defer src="script.js"></script>
+  <script defer src="function1.js"></script>
+  <script defer src="table1.js"></script>
+  <link href="style_attendance_management.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
-
+<body onload="managementTableCreate()">
+<div>
+  <div class="navs">
+    <div class="nav-item">출석 관리</div>
+    <button class="button-item" onclick="location.href='index.html'">돌아가기</button>
+  </div>
+  <table id="managementTable">
+    <thead>
+      <tr><strong>
+        <th>이름</th>
+        <th>1 주차</th>
+        <th>2 주차</th>
+        <th>3 주차</th>
+        <th>4 주차</th>
+        <th>5 주차</th>
+        <th>6 주차</th>
+        <th>7 주차</th>
+        <th>8 주차</th>
+        <th>9 주차</th>
+        <th>10 주차</th>
+        <th>11 주차</th>
+        <th>12 주차</th>
+        <th>13 주차</th>
+        <th>결석일수</th>
+      </tr></strong>
+    </thead>
+    <tbody id="checkbody">
+    </tbody>
+  </table>
+</div>
 </body>
-</html>

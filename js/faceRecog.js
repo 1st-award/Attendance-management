@@ -23,7 +23,7 @@ function startVideo() {
 // face expression recognition model
 video.addEventListener('play', () => {
   const canvas = document.getElementById('overlay')
-  const displaySize = { width: 720, height: 560 }
+  const displaySize = { width: video.width, height: video.height }
   faceapi.matchDimensions(canvas, displaySize)
   setInterval(async () => {
     const labeledFaceDescriptors = await loadLabeledImages()

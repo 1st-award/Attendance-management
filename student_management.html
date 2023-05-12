@@ -5,13 +5,14 @@
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="js/student_management.js"></script>
     <script src="js/DB.js"></script>
+    <script src="js/function1.js"></script>
+    <script src="js/table1.js"></script>
     <link href="css/style_student_management.css" rel="stylesheet" type="text/css"/>
 </head>
-<body>
-<div>
+<body onload="studentManagementTableCreate()">
+  <div>
     <div class="navs">
         <div class="nav-item">학생관리 페이지</div>
-        <input type="button" value="학생 등록" onclick="location.href='student_info.html'"/>
     </div>
     <table id="checkTable">
         <thead>
@@ -21,8 +22,6 @@
                 <th>학번</th>
                 <th>출석일 수</th>
                 <th>결석일 수</th>
-                <th>수정</th>
-                <th>삭제</th>
             </strong>
         </tr>
         </thead>
@@ -30,6 +29,11 @@
 
         </tbody>
     </table>
-</div>
+  </div>
+  <div class="buttons">
+    <button class="button-item" onclick="">등록</button>
+    <button class="button-item" onclick="">수정</button>
+    <button class="button-item" onclick="">삭제</button>
     <button class="button-item" onclick="location.href='index.html'">돌아가기</button>
+  </div>
 </body>

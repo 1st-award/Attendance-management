@@ -9,7 +9,7 @@ function getCheck(data, student_id) {
 }
 
 function managementTableCreate() {
-    $.get("http://mooro.iptime.org:8000/attendance").done(function (data) {
+    $.get("https://mooro.iptime.org:443/attendance").done(function (data) {
         const MAX_WEEK = data[data.length - 1]["attendance_week"];
         const TR_TAG = document.querySelector("tr");
         const TBODY = document.querySelector("tbody");

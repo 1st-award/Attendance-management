@@ -24,6 +24,17 @@ video{
   right: 10px;
 }
 
+.options {
+  position: fixed;
+  top: 2%;
+  right:10px;
+  font-size: 3em;
+}
+
+.checkbox {
+  font-size: 0.5em;
+}
+
 thead { 
   position: sticky;
   font-size: 2.5em;

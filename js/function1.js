@@ -8,6 +8,11 @@ function checkBoxCreate(id = '') {
   }
   html += '</select>';
   html += '</form>';
+
+  var formContainer = document.createElement('div');
+  formContainer.innerHTML = html;
+
+  document.body.appendChild(formContainer.firstChild);
 }
 
 function changeText(id, string){

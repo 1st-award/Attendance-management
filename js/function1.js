@@ -1,20 +1,43 @@
-function checkTableCreate(weekN){
+function checkBoxCreate(id = '') {
   var html = '';
-			
-  for(key in tc){			
-    html += '<tr>';
-    html += '<td>'+tc[key].name+'</td>';
-    html += '<td>'+tc[key].id+'</td>';
-    html += '<td>'+tc[key].weeks[weekN] +'</td>';
-    html += '</tr>';
-  }	
-  $("#checkbody").empty();		
-  $("#checkbody").append(html);
+  html += '<form class="'+id+'">';
+  html += '<select class="checkbox" onchange="checkTableCreate(this.value)">';
+  html += '<option value="-1">선택</option>'
+  for (var i = 0; i < tc[0].weeks.length; i++) {
+    html += '<option value="' + i + '">' + (i + 1) + '주차</option>';
+  }
+  html += '</select>';
+  html += '</form>';
+
+  var formContainer = document.createElement('div');
+  formContainer.innerHTML = html;
+
+  document.body.appendChild(formContainer.firstChild);
+}
+
+function changeText(id, string){
+  document.getElementById(id).innerHTML = string;
+}
+
+function checkTableCreate(weekN){
+  if(weekN != "-1") {
+    changeText("nav-item","출석 체크 "+(parseInt(weekN)+1)+"주차")
+    var html = '';
+    for(key in tc){			
+      html += '<tr>';
+      html += '<td>'+tc[key].name+'</td>';
+      html += '<td>'+tc[key].id+'</td>';
+      html += '<td>'+tc[key].weeks[weekN] +'</td>';
+      html += '</tr>';
+    }	
+    $("#checkbody").empty();		
+    $("#checkbody").append(html);
+  }
 }
 
 function managementTableCreate(){
   var html = '';
-			
+  
   for(key in tc){			
     html += '<tr>';
     html += '<td>'+tc[key].name+'</td>';
@@ -33,7 +56,7 @@ function studentManagementTableCreate(){
 			
   for(key in tc){			
     html += '<tr>';
-    html += '<td>'+'<button>'+tc[key].name+'</button>'+'</td>';
+    html += '<td>'+'<button onclick="selectStudent('+key+')">'+tc[key].name+'</button>'+'</td>';
     html += '<td>'+tc[key].id+'</td>';
     html += '<td>'+getAttendance(tc[key].weeks)+'</td>';
     html += '<td>'+getAbsence(tc[key].weeks)+'</td>';
@@ -61,6 +84,12 @@ function addTable(get_name, get_id){
     weeks: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     absence: 0
   });
+}
+
+function selectStudent(key){
+  document.getElementById("img").src = tc[key].img;
+  document.getElementById("student-name").innerText = "이름";
+  document.getElementById("student-id").innerText = "학번";
 }
 
 function getAttendance(getWeeks, attendanceN = 0){

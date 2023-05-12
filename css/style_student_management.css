@@ -11,15 +11,39 @@ html {
   font-size: 3em;
 }
 
-.buttons {
-  bottom: 10px;
-  right: 10px;
+..buttons {
   display: flex;
-  position: fixed;
   }
 
 .button-item {
+  font-size:0.5em;
+}
+
+.button-back {
+  bottom: 10px;
+  right: 10px;
+  position: fixed;
   font-size:2.5em;
+}
+
+.lines{
+  display: flex;
+}
+
+.container{
+  position: fixed;
+  top: 10%;
+  right: 25%;
+  font-size: 3em;
+}
+
+student{
+  font-size: 3em;
+}
+
+img{
+  width: 300px;
+  height: 500px;
 }
 
 thead { 

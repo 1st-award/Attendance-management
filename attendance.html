@@ -5,14 +5,14 @@
   <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
   <script defer src="js/face-api.min.js"></script>
   <script defer src="js/faceRecog.js"></script>
-  <script defer src="js/function1.js"></script>
-  <script defer src="js/table1.js"></script>
+  <script src="js/attendance.js"></script>
   <link href="css/style_attendance.css" rel="stylesheet" type="text/css" />
 </head>
-<body onload="checkBoxCreate('options')">
+<body onload="createTable()">
   <div>
     <div class="navs">
       <div id="nav-item" class="nav-item">출석 체크</div>
+      <button class="button-complete" onclick="checkComplete()">출석완료</button>
     </div>
     <table id="checkTable">
       <thead>

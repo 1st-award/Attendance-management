@@ -1,4 +1,11 @@
 const video = document.getElementById('video')
+const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark'];
+// 등록된 학생 라벨 추가
+$.get("https://mooro.iptime.org/student").done(function (student_list) {
+  for (let i = 0; i < student_list.length; i++) {
+    labels.push(student_list[i]["student_no"]);
+  }
+});
 
 Promise.all([
   faceapi.nets.tinyFaceDetector.loadFromUri('/Attendance-management/models'),
@@ -37,6 +44,10 @@ video.addEventListener('play', () => {
     faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
     
     const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
+
+    if (results.length != 0 && results[0]._distance >= 0.1) {
+      attendanceUpdate(results[0]._label);
+    }
     results.forEach((result, i) => {
       const box = resizedDetections[i].detection.box
       const drawBox = new faceapi.draw.DrawBox(box, { label: result.toString() })
@@ -49,7 +60,6 @@ video.addEventListener('play', () => {
 
 // face recognition model with Avengers images
 function loadLabeledImages() {
-  const labels = ['Black Widow', 'Captain America', 'Captain Marvel', 'Hawkeye', 'Jim Rhodes', 'Thor', 'Tony Stark']
   return Promise.all(
     labels.map(async label => {
       const descriptions = []

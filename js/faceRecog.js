@@ -46,6 +46,9 @@ video.addEventListener('play', () => {
     const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
 
     if (results.length != 0 && results[0]._distance >= 0.1) {
+      if (results[0]._label == "unknown") {
+        alert("등록되지 않은 얼굴입니다. 등록을 먼저해주세요");
+      }
       attendanceUpdate(results[0]._label);
     }
     results.forEach((result, i) => {

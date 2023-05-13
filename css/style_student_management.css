@@ -11,7 +11,7 @@ html {
   font-size: 3em;
 }
 
-..buttons {
+.buttons {
   display: flex;
   }
 
@@ -43,7 +43,7 @@ student{
 
 img{
   width: 300px;
-  height: 500px;
+  height: 400px;
 }
 
 thead { 

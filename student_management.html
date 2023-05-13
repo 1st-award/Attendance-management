@@ -4,8 +4,6 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-3.4.1.js"></script>
     <script src="js/student_management.js"></script>
-    <script src="js/function1.js"></script>
-    <script src="js/table1.js"></script>
     <link href="css/style_student_management.css" rel="stylesheet" type="text/css"/>
 </head>
 <body onload="studentManagementTableCreate()">
@@ -30,13 +28,20 @@
         </tbody>
     </table>
   <div class="container">
-      <img id="img" src=""></img>
-      <div id="studnet-name" innerText="이름"></div>
-      <div id="studnet-id" innerText="학번"></div>
+      <img id="img" src="" />
+      <div id="studnet-name" innerText="이름">
+          <input type="file" id="chooseFile" name="chooseFile" accept="image/*" onchange="loadFile(this)"><br>
+          <label style="font-size: 16px">이름</label>
+          <input type="text" id="student_name">
+      </div>
+      <div id="studnet-id" innerText="학번">
+          <label style="font-size: 16px">학번</label>
+          <input type="number" id="student_number">
+      </div>
       <div class="buttons">
-        <button class="button-item" onclick="">등록</button>
-        <button class="button-item" onclick="">수정</button>
-        <button class="button-item" onclick="">삭제</button>
+        <button class="button-item" onclick="addStudent()">등록</button>
+        <button class="button-item" onclick="editStudent()">수정</button>
+        <button class="button-item" onclick="deleteStudent()">삭제</button>
       </div>
     </div>
   </div>

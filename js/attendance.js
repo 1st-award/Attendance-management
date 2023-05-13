@@ -73,6 +73,6 @@ function checkComplete() {
                 console.log(error);
             }
         });
-        alert("처리되었습니다");
     }
+    alert("처리되었습니다");
 }

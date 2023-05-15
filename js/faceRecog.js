@@ -8,41 +8,66 @@ $.get("https://mooro.iptime.org/student").done(function (student_list) {
 });
 
 Promise.all([
-    faceapi.nets.tinyFaceDetector.loadFromUri('/Attendance-management/models'),
-    faceapi.nets.faceLandmark68Net.loadFromUri('/Attendance-management/models'),
-    faceapi.nets.faceRecognitionNet.loadFromUri('/Attendance-management/models'),
-    faceapi.nets.faceExpressionNet.loadFromUri('/Attendance-management/models'),
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/Attendance-management/models')
-]).then(startVideo())
+    faceapi.nets.ssdMobilenetv1.loadFromUri("/models"),
+    faceapi.nets.faceRecognitionNet.loadFromUri("/models"),
+    faceapi.nets.faceLandmark68Net.loadFromUri("/models"),
+]).then(startWebcam);
 
-
-// face expression recognition model
-function startVideo() {
-    navigator.mediaDevices.getUserMedia({video: true}).then(function (stream) {
-        video.srcObject = stream;
-    }).catch(function (err0r) {
-        console.log("Something went wrong!");
-    });
+function startWebcam() {
+    navigator.mediaDevices
+        .getUserMedia({
+            video: true,
+            audio: false,
+        })
+        .then((stream) => {
+            video.srcObject = stream;
+        })
+        .catch((error) => {
+            console.error(error);
+        });
 }
 
+function getLabeledFaceDescriptions() {
+    return Promise.all(
+        labels.map(async (label) => {
+            const descriptions = [];
+            for (let i = 1; i <= 3; i++) {
+                const img = await faceapi.fetchImage(`https://mooro.iptime.org/student/img/${label}`);
+                const detections = await faceapi
+                    .detectSingleFace(img)
+                    .withFaceLandmarks()
+                    .withFaceDescriptor();
+                if (detections === undefined) continue;
+                descriptions.push(detections.descriptor);
+            }
+            return new faceapi.LabeledFaceDescriptors(label, descriptions);
+        })
+    );
+}
 
-// face expression recognition model
-video.addEventListener('play', () => {
-    const canvas = document.getElementById('overlay')
-    const displaySize = {width: video.width, height: video.height}
-    faceapi.matchDimensions(canvas, displaySize)
+video.addEventListener("play", async () => {
+    const labeledFaceDescriptors = await getLabeledFaceDescriptions();
+    const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors);
+
+    const canvas = faceapi.createCanvasFromMedia(video);
+    document.body.append(canvas);
+
+    const displaySize = { width: video.width, height: video.height };
+    faceapi.matchDimensions(canvas, displaySize);
+
     setInterval(async () => {
-        const labeledFaceDescriptors = await loadLabeledImages()
-        const faceMatcher = new faceapi.FaceMatcher(labeledFaceDescriptors, 0.6)
+        const detections = await faceapi
+            .detectAllFaces(video)
+            .withFaceLandmarks()
+            .withFaceDescriptors();
 
-        const detections = await faceapi.detectAllFaces(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().withFaceDescriptors().withFaceExpressions()
-        const resizedDetections = faceapi.resizeResults(detections, displaySize)
-        canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
-        faceapi.draw.drawDetections(canvas, resizedDetections)
-        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
-        faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+        const resizedDetections = faceapi.resizeResults(detections, displaySize);
 
-        const results = resizedDetections.map(d => faceMatcher.findBestMatch(d.descriptor))
+        canvas.getContext("2d").clearRect(0, 0, canvas.width, canvas.height);
+
+        const results = resizedDetections.map((d) => {
+            return faceMatcher.findBestMatch(d.descriptor);
+        });
 
         if (results.length != 0 && results[0]._distance >= 0.1) {
             if (results[0]._label == "unknown") {
@@ -50,37 +75,14 @@ video.addEventListener('play', () => {
             }
             attendanceUpdate(results[0]._label);
         }
+
         results.forEach((result, i) => {
-            const box = resizedDetections[i].detection.box
-            const drawBox = new faceapi.draw.DrawBox(box, {label: result.toString()})
-            drawBox.draw(canvas)
-        })
+            const box = resizedDetections[i].detection.box;
+            const drawBox = new faceapi.draw.DrawBox(box, {
+                label: result,
+            });
+            drawBox.draw(canvas);
+        });
+    }, 100);
 
-    }, 100)
-})
-
-
-// face recognition model with Avengers images
-function loadLabeledImages() {
-    return Promise.all(
-        labels.map(async label => {
-            const descriptions = []
-            const img = await faceapi.fetchImage(`https://mooro.iptime.org/student/img/${label}`)
-            const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-            descriptions.push(detections.descriptor)
-            return new faceapi.LabeledFaceDescriptors(label, descriptions)
-        })
-    )
-
-    // return Promise.all(
-    //     labels.map(async label => {
-    //         const descriptions = []
-    //         for (let i = 1; i <= 2; i++) {
-    //             const img = await faceapi.fetchImage(`/Attendance-management/labeled_images/${label}/${i}.jpg`)
-    //             const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
-    //             descriptions.push(detections.descriptor)
-    //         }
-    //         return new faceapi.LabeledFaceDescriptors(label, descriptions)
-    //     })
-    // )
-}
+});

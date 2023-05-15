@@ -70,7 +70,13 @@ function executeCSV() {
     const headers = Array.from(table.querySelectorAll('th')).map(th => th.textContent.trim());
     // 행 데이터 추출
     const rows = Array.from(table.querySelectorAll('tbody tr')).map(tr => {
-        return Array.from(tr.querySelectorAll('td')).map(td => td.textContent.trim());
+        return Array.from(tr.querySelectorAll('td')).map(td => {
+            if (td.textContent == "결석출석") {
+                const select_box = td.children[0];
+                return select_box[select_box.selectedIndex].innerHTML;
+            } else
+                return td.textContent.trim()
+        });
     });
     // CSV 문자열 생성
     const csvData = [headers, ...rows].map(row => row.join(',')).join('\n');

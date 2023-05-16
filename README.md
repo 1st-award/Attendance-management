@@ -22,8 +22,11 @@
 4. CSV를 이용하여 주, 월, 학기별로 출력할 수 있도록 한다.
 5. 데이터베이스를 활용하여 이전 기록도 열람 가능해야 한다.
 
-## 페이지
+## 페이지 구조
 [메인화면(index.html)](index.html)<br>
 [출석 페이지(attendance.html)](attendance.html)<br>
 [출석관리 페이지(attendance_management.html)](attendance_management.html)<br>
 [학생관리 페이지(student_management.html)](student_management.html)<br>
+
+## 참고
+- 기획서 및 구현 과정: [Notion](https://www.notion.so/1st-award/16e9f2e6a5de45758c540a774d25bb84)
